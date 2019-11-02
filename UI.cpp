@@ -7,7 +7,7 @@
 
 using namespace std;
 
-UI::UI() : TravellingSalesmanProblem(make_shared<TSP>()), BF(TravellingSalesmanProblem) {}
+UI::UI() : TravellingSalesmanProblem(make_shared<TSP>()), BF(TravellingSalesmanProblem), BnB(TravellingSalesmanProblem) {}
 
 void UI::start() {
     char selection = 0;
@@ -48,6 +48,16 @@ void UI::start() {
                     cerr << e.what() << endl;
                 }
                 break;
+            case '4':
+                try {
+                    output = BnB.showInfoBeforeRunning();
+                    cout << output << endl;
+                    output = BnB.run();
+                    cout << output << endl;
+                } catch (const runtime_error &e) {
+                    cerr << e.what() << endl;
+                }
+                break;
 
         }
     } while (selection != '0');
@@ -59,6 +69,7 @@ void UI::printMenu() {
     std::cout << "1. Wczytaj macierz wierzcholkow z pliku" << std::endl;
     std::cout << "2. Wyswietl macierz wierzcholkow" << std::endl;
     std::cout << "3. Uruchom algorytm Brute-force" << std::endl;
+    std::cout << "4. Uruchom algorytm Branch&Bound" << std::endl;
     std::cout << "0. Wyjscie" << std::endl;
     std::cout << "Wybor: ";
 }

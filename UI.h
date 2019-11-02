@@ -7,6 +7,7 @@
 
 #include "TSP.h"
 #include "BruteForce.h"
+#include "BranchAndBound.h"
 
 #include <iomanip>
 #include <memory>
@@ -23,6 +24,7 @@ private:
     shared_ptr<TSP> TravellingSalesmanProblem;
 
     BruteForce BF;
+    BranchAndBound BnB;
 };
 
 
