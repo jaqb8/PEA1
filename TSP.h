@@ -14,6 +14,7 @@ using namespace std;
 class TSP {
 public:
     void loadTSP(string path);
+    void generateRandomData(unsigned long noOfVertices, int range);
     string printData();
     unsigned long getNumberOfVertices() const;
     int getDistance(int start, int end) const;

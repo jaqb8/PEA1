@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <sstream>
+#include <random>
 #include <iomanip>
 
 using namespace std;
@@ -127,4 +128,35 @@ int TSP::getMinimumDistanceTo(int vertex) const {
     }
 
     return min;
+}
+
+void TSP::generateRandomData(unsigned long noOfVertices, int range) {
+    if (noOfVertices < 0) {
+        throw std::runtime_error("Liczba wierzcholkow nie może byc ujemna!");
+    }
+    if (noOfVertices == 0) {
+        TSPData.clear();
+        TSPData.resize(0);
+        return;
+    }
+    if (range < 1) {
+        throw std::runtime_error("Górna granica zakresu musi byc dodatnia!");
+    }
+
+    std::random_device seed;
+    std::mt19937 randomGenerator(seed());
+    std::uniform_int_distribution<> rangeTransformer(1, range);
+
+    TSPData.clear();
+    TSPData.resize(noOfVertices);
+
+    for (auto &row : TSPData) {
+        for (int j = 0; j < noOfVertices; ++j) {
+            row.push_back(rangeTransformer(randomGenerator));
+        }
+    }
+
+    for (int i = 0; i < TSPData.size(); ++i) {
+        TSPData[i][i] = -1;
+    }
 }

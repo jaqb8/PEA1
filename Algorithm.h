@@ -27,6 +27,9 @@ protected:
     int calculateDistance(vector<int> &route);
     vector<int> generateRandomRoute();
 
+    chrono::high_resolution_clock::time_point startTime;
+    chrono::high_resolution_clock::time_point endTime;
+
     shared_ptr<TSP> TravellingSalesmanProblem;
     int noOfChecks;
     unsigned long noOfVertices;

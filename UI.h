@@ -8,6 +8,7 @@
 #include "TSP.h"
 #include "BruteForce.h"
 #include "BranchAndBound.h"
+#include "Test.h"
 
 #include <iomanip>
 #include <memory>
@@ -19,12 +20,15 @@ public:
 
 private:
     void printMenu();
-    void printFileWarning();
+    void printTestMenu();
+    void runTestMenu();
 
     shared_ptr<TSP> TravellingSalesmanProblem;
 
     BruteForce BF;
     BranchAndBound BnB;
+
+    Test test;
 };
 
 

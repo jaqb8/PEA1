@@ -22,9 +22,9 @@ string BruteForce::showInfoBeforeRunning() {
 
 string BruteForce::run() {
     prepareToRun();
-    // TODO - startTime chrono
+    startTime = chrono::high_resolution_clock::now();
     enumerateSolutions(startVertex);
-    // TODO - endTime chrono
+    endTime = chrono::high_resolution_clock::now();
 
     return generateOutput();
 }
