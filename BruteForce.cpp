@@ -82,7 +82,11 @@ string BruteForce::generateOutput() {
     output += to_string(noOfChecks);
     output += "\n";
 
-    // TODO - chrono raport
+    output += "Długość pracy algorytmu: ";
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+    output += std::to_string(duration);
+    output += "µs";
+    output += "\n";
 
     if (bestRoute.empty()) {
         output += "Nie znaleziono zadnej trasy!\n";

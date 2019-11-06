@@ -41,6 +41,7 @@ void UI::start() {
                 try {
                     output = BF.showInfoBeforeRunning();
                     cout << output << endl;
+
                     output = BF.run();
                     cout << output << endl;
                 } catch (const runtime_error &e) {
