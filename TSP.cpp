@@ -160,3 +160,7 @@ void TSP::generateRandomData(unsigned long noOfVertices, int range) {
         TSPData[i][i] = -1;
     }
 }
+
+vector<vector<int>> TSP::getMatrix() {
+    return TSPData;
+}

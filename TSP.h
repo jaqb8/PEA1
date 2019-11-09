@@ -20,6 +20,7 @@ public:
     int getDistance(int start, int end) const;
     int getMinimumDistanceFrom(int vertex) const;
     int getMinimumDistanceTo(int vertex) const;
+    vector<vector<int>> getMatrix();
 
 private:
     vector<vector<int>> TSPData;

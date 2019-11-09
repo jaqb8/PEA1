@@ -7,7 +7,7 @@
 
 using namespace std;
 
-UI::UI() : TravellingSalesmanProblem(make_shared<TSP>()), BF(TravellingSalesmanProblem), BnB(TravellingSalesmanProblem) {}
+UI::UI() : TravellingSalesmanProblem(make_shared<TSP>()), BF(TravellingSalesmanProblem), BnB(TravellingSalesmanProblem), DP(TravellingSalesmanProblem) {}
 
 void UI::start() {
     char selection = 0;
@@ -60,6 +60,17 @@ void UI::start() {
                 break;
             case '5':
                 try {
+                    DP.prepareToRun();
+                    DP.initTSP();
+                    cout << "\nThe minimal cost path: 0->";
+                    DP.getPath(0, DP.noOfVertices2 - 2);
+                    cout << "0\n";
+                } catch (const runtime_error &e) {
+                    cerr << e.what() << endl;
+                }
+                break;
+            case '6':
+                try {
                     runTestMenu();
                 } catch (const runtime_error &e) {
                     cerr << e.what() << endl;
@@ -76,7 +87,8 @@ void UI::printMenu() {
     std::cout << "2. Wyswietl macierz wierzcholkow" << std::endl;
     std::cout << "3. Uruchom algorytm Brute-force" << std::endl;
     std::cout << "4. Uruchom algorytm Branch&Bound" << std::endl;
-    std::cout << "5. Testy" << std::endl;
+    std::cout << "5. Uruchom algorytm Dynamic Programming" << std::endl;
+    std::cout << "6. Testy" << std::endl;
     std::cout << "0. Wyjscie" << std::endl;
     std::cout << "Wybor: ";
 }

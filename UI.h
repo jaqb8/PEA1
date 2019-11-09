@@ -8,6 +8,7 @@
 #include "TSP.h"
 #include "BruteForce.h"
 #include "BranchAndBound.h"
+#include "DynamicProgramming.h"
 #include "Test.h"
 
 #include <iomanip>
@@ -27,6 +28,7 @@ private:
 
     BruteForce BF;
     BranchAndBound BnB;
+    DynamicProgramming DP;
 
     Test test;
 };
