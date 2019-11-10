@@ -38,6 +38,26 @@ void UI::start() {
                 cout << output << endl;
                 break;
             case '3':
+                do {
+                    std::cout << "Podaj ilość miast: ";
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                } while (!(std::cin >> noOfVertices));
+                do {
+                    std::cout << "Podaj zakres maksymalnej długości drogi (0 - zakres]: ";
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                } while (!(std::cin >> range));
+
+                try {
+                    TravellingSalesmanProblem->generateRandomData(noOfVertices, range);
+                } catch (const std::runtime_error &e) {
+                    std::cerr << e.what() << std::endl;
+                }
+                break;
+
+
+            case '4':
                 try {
                     output = BF.showInfoBeforeRunning();
                     cout << output << endl;
@@ -48,7 +68,7 @@ void UI::start() {
                     cerr << e.what() << endl;
                 }
                 break;
-            case '4':
+            case '5':
                 try {
                     output = BnB.showInfoBeforeRunning();
                     cout << output << endl;
@@ -58,18 +78,17 @@ void UI::start() {
                     cerr << e.what() << endl;
                 }
                 break;
-            case '5':
+            case '6':
                 try {
                     DP.prepareToRun();
-                    DP.initTSP();
-                    cout << "\nThe minimal cost path: 0->";
-                    DP.getPath(0, DP.noOfVertices2 - 2);
-                    cout << "0\n";
+                    DP.run();
+                    output = DP.generateOutput();
+                    cout << output << endl;
                 } catch (const runtime_error &e) {
                     cerr << e.what() << endl;
                 }
                 break;
-            case '6':
+            case '7':
                 try {
                     runTestMenu();
                 } catch (const runtime_error &e) {
@@ -85,10 +104,11 @@ void UI::printMenu() {
     std::cout << "--- PROBLEM KOMIWOJAZERA ---" << std::endl;
     std::cout << "1. Wczytaj macierz wierzcholkow z pliku" << std::endl;
     std::cout << "2. Wyswietl macierz wierzcholkow" << std::endl;
-    std::cout << "3. Uruchom algorytm Brute-force" << std::endl;
-    std::cout << "4. Uruchom algorytm Branch&Bound" << std::endl;
-    std::cout << "5. Uruchom algorytm Dynamic Programming" << std::endl;
-    std::cout << "6. Testy" << std::endl;
+    std::cout << "3. Wygeneruj losowa macierz" << std::endl;
+    std::cout << "4. Uruchom algorytm Brute-force" << std::endl;
+    std::cout << "5. Uruchom algorytm Branch&Bound" << std::endl;
+    std::cout << "6. Uruchom algorytm Dynamic Programming" << std::endl;
+    std::cout << "7. Testy" << std::endl;
     std::cout << "0. Wyjscie" << std::endl;
     std::cout << "Wybor: ";
 }
@@ -163,14 +183,14 @@ void UI::runTestMenu() {
                 }
                 break;
 
-            case '6':
-                try {
-                    output = test.test6();
-                    std::cout << output << std::endl;
-                } catch (const std::runtime_error &e) {
-                    std::cerr << e.what() << std::endl;
-                }
-                break;
+//            case '6':
+//                try {
+//                    output = test.test6();
+//                    std::cout << output << std::endl;
+//                } catch (const std::runtime_error &e) {
+//                    std::cerr << e.what() << std::endl;
+//                }
+//                break;
 
             case '0':
                 break;

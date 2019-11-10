@@ -7,6 +7,7 @@
 
 #include "TSP.h"
 #include "Algorithm.h"
+#include "DynamicProgramming.h"
 
 #include <fstream>
 
@@ -21,13 +22,12 @@ public:
     std::string test3();
     std::string test4();
     std::string test5();
-    std::string test6();
 
 private:
-    std::string exactTestTemplateOnFiles(int cityRange);
     std::string exactTestTemplateOnRandomData(int noOfVertices, int range, char testNumber);
     std::shared_ptr<TSP> TravellingSalesmanProblem;
     Algorithm *algorithm;
+    DynamicProgramming *DP;
     std::fstream outputFile;
 };
 

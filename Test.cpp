@@ -84,65 +84,56 @@ std::string Test::test4() {
 }
 
 std::string Test::test5() {
-    algorithm = new BruteForce(TravellingSalesmanProblem);
+    int numberOfTests = 1;
+    int maxCityNumber = 30;
+    char testNumber = '5';
 
-    std::string output = exactTestTemplateOnFiles(4);
+    DP = new DynamicProgramming(TravellingSalesmanProblem);
 
-    delete algorithm;
+    std::stringstream outputConsole;
+    outputConsole.setf(std::ios::fixed);
 
-    return output;
-}
+    outputFile << "--- " << getTestName(testNumber) << " ---" << std::endl;
+    outputConsole << "--- " << getTestName(testNumber) << " ---" << std::endl;
 
-std::string Test::test6() {
-    algorithm = new BranchAndBound(TravellingSalesmanProblem);
+    for (unsigned long numberOfCities = 20; numberOfCities <= maxCityNumber; ++numberOfCities) {
+        outputFile << "Ilość miast: " << numberOfCities << std::endl;
+        outputConsole << "Ilość miast: " << numberOfCities << std::endl;
 
-    std::string output = exactTestTemplateOnFiles(7);
+        int sumOfResults = 0;
 
-    delete algorithm;
+        for (int i = 0; i < numberOfTests; ++i) {
+            try {
+                TravellingSalesmanProblem->generateRandomData(numberOfCities, 30);
 
-    return output;
-}
+                outputConsole << "Test " << i << " - ";
 
-std::string Test::exactTestTemplateOnFiles(int cityRange) {
-    std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
-    std::string pathToDir = "../tests/small/";
+                std::chrono::high_resolution_clock::time_point startTime = std::chrono::high_resolution_clock::now();
+                DP->prepareToRun();
+                DP->run();
+                std::chrono::high_resolution_clock::time_point endTime = std::chrono::high_resolution_clock::now();
 
-    std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
+                auto result = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
 
-    std::string output;
+                outputFile << result << std::endl;
+                outputConsole << result << std::endl;
 
-    auto startTime = std::chrono::high_resolution_clock::now();
-
-    for (int j = 0; j < cityRange; ++j) {
-        TravellingSalesmanProblem->loadTSP(pathToDir + filePaths[j]);
-
-        output += "\n";
-
-        std::string temp = algorithm->run();
-
-        int numberOfNewLines = 0;
-        int cutPosition = 0;
-        for (int k = 0; k < temp.size(); ++k) {
-            if (temp[k] == '\n') {
-                numberOfNewLines++;
-                if (numberOfNewLines == 3) {
-                    cutPosition = k;
-                    break;
-                }
+                sumOfResults += result;
+            } catch (const std::runtime_error &e) {
+                i--;
+                outputConsole << e.what() << std::endl;
             }
         }
 
-        temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
+        sumOfResults /= numberOfTests;
 
-        output += temp;
-
-        output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+        outputFile << sumOfResults << std::endl;
+        outputConsole << "Średnia: " << sumOfResults << std::endl;
     }
 
-    auto endTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+    std::string output = outputConsole.str();
 
-    output += "\nIlość testów: " + std::to_string(cityRange) + ", czas trwania: " + std::to_string(duration) + "\n";
+    delete DP;
 
     return output;
 }
@@ -207,10 +198,7 @@ std::string Test::getTestName(char test) {
             return "Branch and bound (3-25 miast) x1";
 
         case '5':
-            return "Brute force (test z plików) x1";
-
-        case '6':
-            return "Branch and bound (test z plików) x1";
+            return "Dynamic Programming (3-20 miast) x1";
 
         default:
             return "";

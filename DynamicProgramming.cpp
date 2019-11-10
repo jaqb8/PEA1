@@ -22,7 +22,7 @@ DynamicProgramming::~DynamicProgramming() {
     }
 }
 
-int DynamicProgramming::initTSP() {
+int DynamicProgramming::run() {
     for (int i = 0; i < noOfVertices; ++i) {
         for (int j = 0; j < noOfVertices2; ++j) {
             g[i][j] = -1;
@@ -31,11 +31,16 @@ int DynamicProgramming::initTSP() {
     }
 
     int result;
+
+    startTime = chrono::high_resolution_clock::now();
+
     for (int i = 0; i < noOfVertices; ++i) {
         g[i][0] = matrix [i][0];
     }
 
     result = DPTSP(0, noOfVertices2 - 2);
+
+    endTime = chrono::high_resolution_clock::now();
 
     return result;
 }
@@ -43,7 +48,7 @@ int DynamicProgramming::initTSP() {
 void DynamicProgramming::getPath(int start, int set) {
     if (next[start][set] == -1) return;
     int i = next[start][set];
-    cout << i << "->";
+    cout << i << " - ";
     int bitMask = noOfVertices2 - 1 - (int)pow(2,i);
     int newSubset = set & bitMask;
     getPath(i, newSubset);
@@ -83,6 +88,21 @@ void DynamicProgramming::prepareToRun() {
         g[i] = new int[noOfVertices2];
         next[i] = new int[noOfVertices2];
     }
+}
+
+string DynamicProgramming::generateOutput() {
+    string output;
+    output += "Dlugosc pracy algorytmu: ";
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+    output += std::to_string(duration);
+    output += "µs";
+    output += "\n";
+
+    cout << "\nNajlepsza trasa: 0 - ";
+    getPath(0, noOfVertices2 - 2);
+    cout << "0\n";
+
+    return output;
 }
 
 

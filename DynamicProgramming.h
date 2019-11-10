@@ -13,6 +13,7 @@
 #include <memory>
 #include <cmath>
 #include <limits>
+#include "chrono"
 
 using namespace std;
 
@@ -27,9 +28,12 @@ public:
     explicit DynamicProgramming(shared_ptr<TSP> TravellingSalesmanProblem);
     ~DynamicProgramming();
     int DPTSP(int startV, int set);
-    int initTSP();
+    int run();
     void getPath(int start, int set);
     void prepareToRun();
+    string generateOutput();
+    chrono::high_resolution_clock::time_point startTime;
+    chrono::high_resolution_clock::time_point endTime;
 
 protected:
     shared_ptr<TSP> TravellingSalesmanProblem;
