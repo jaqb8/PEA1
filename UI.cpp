@@ -81,7 +81,7 @@ void UI::start() {
             case '6':
                 try {
                     DP.prepareToRun();
-                    DP.run();
+                    cout << "Dlugosc najlepszej trasy: " << DP.run();
                     output = DP.generateOutput();
                     cout << output << endl;
                 } catch (const runtime_error &e) {

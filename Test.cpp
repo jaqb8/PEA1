@@ -57,7 +57,7 @@ std::string Test::test2() {
 
 std::string Test::test3() {
     int numberOfTests = 1;
-    int maxCityNumber = 13;
+    int maxCityNumber = 12;
     char testNumber = '3';
 
     algorithm = new BruteForce(TravellingSalesmanProblem);
@@ -84,8 +84,8 @@ std::string Test::test4() {
 }
 
 std::string Test::test5() {
-    int numberOfTests = 1;
-    int maxCityNumber = 30;
+    int numberOfTests = 10;
+    int maxCityNumber = 20;
     char testNumber = '5';
 
     DP = new DynamicProgramming(TravellingSalesmanProblem);
@@ -96,7 +96,7 @@ std::string Test::test5() {
     outputFile << "--- " << getTestName(testNumber) << " ---" << std::endl;
     outputConsole << "--- " << getTestName(testNumber) << " ---" << std::endl;
 
-    for (unsigned long numberOfCities = 20; numberOfCities <= maxCityNumber; ++numberOfCities) {
+    for (unsigned long numberOfCities = 3; numberOfCities <= maxCityNumber; ++numberOfCities) {
         outputFile << "Ilość miast: " << numberOfCities << std::endl;
         outputConsole << "Ilość miast: " << numberOfCities << std::endl;
 
@@ -108,8 +108,8 @@ std::string Test::test5() {
 
                 outputConsole << "Test " << i << " - ";
 
-                std::chrono::high_resolution_clock::time_point startTime = std::chrono::high_resolution_clock::now();
                 DP->prepareToRun();
+                std::chrono::high_resolution_clock::time_point startTime = std::chrono::high_resolution_clock::now();
                 DP->run();
                 std::chrono::high_resolution_clock::time_point endTime = std::chrono::high_resolution_clock::now();
 
@@ -198,7 +198,7 @@ std::string Test::getTestName(char test) {
             return "Branch and bound (3-25 miast) x1";
 
         case '5':
-            return "Dynamic Programming (3-20 miast) x1";
+            return "Dynamic Programming (3-30 miast) x10";
 
         default:
             return "";

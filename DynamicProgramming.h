@@ -23,7 +23,7 @@ public:
     vector<vector<int>> matrix;
     int noOfVertices2;          // noOfVertices^2
     int** g = nullptr;          // tablica funkcji podproblemow; zawiera wyniki dla juz wyliczonych funkcji
-    int** next = nullptr;       // (next) tablica do tworzenia sciezki powrotnej
+    int** next = nullptr;       // tablica do tworzenia sciezki powrotnej
 
     explicit DynamicProgramming(shared_ptr<TSP> TravellingSalesmanProblem);
     ~DynamicProgramming();

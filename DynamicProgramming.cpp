@@ -32,11 +32,11 @@ int DynamicProgramming::run() {
 
     int result;
 
-    startTime = chrono::high_resolution_clock::now();
-
     for (int i = 0; i < noOfVertices; ++i) {
         g[i][0] = matrix [i][0];
     }
+
+    startTime = chrono::high_resolution_clock::now();
 
     result = DPTSP(0, noOfVertices2 - 2);
 
